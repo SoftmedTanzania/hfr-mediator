@@ -13,7 +13,6 @@ import org.openhim.mediator.engine.MediatorConfig;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
 import org.openhim.mediator.engine.messages.MediatorHTTPResponse;
 import tz.go.moh.him.hfr.mediator.domain.HfrRequest;
-import tz.go.moh.him.hfr.mediator.domain.HrhisMessage;
 import tz.go.moh.him.hfr.mediator.utils.HfrMessageConversionUtility;
 
 import java.nio.charset.StandardCharsets;

@@ -7,7 +7,6 @@ import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
 import org.openhim.mediator.engine.testing.MockHTTPConnector;
 import tz.go.moh.him.hfr.mediator.domain.HfrRequest;
 import tz.go.moh.him.hfr.mediator.domain.HrhisMessage;
-import tz.go.moh.him.hfr.mediator.orchestrator.FacilityOrchestratorTest;
 import tz.go.moh.him.hfr.mediator.orchestrator.HrhisOrchestratorTest;
 
 import java.io.IOException;

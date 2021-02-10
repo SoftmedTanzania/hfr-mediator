@@ -10,7 +10,6 @@ import org.openhim.mediator.engine.messages.FinishRequest;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
 import org.openhim.mediator.engine.testing.MockLauncher;
 import org.openhim.mediator.engine.testing.TestingUtils;
-import tz.go.moh.him.hfr.mediator.mock.MockDestination;
 import tz.go.moh.him.hfr.mediator.mock.MockHrhis;
 
 import java.io.InputStream;
