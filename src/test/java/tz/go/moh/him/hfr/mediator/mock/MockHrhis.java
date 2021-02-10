@@ -20,12 +20,6 @@ import java.util.Map;
 public class MockHrhis extends MockHTTPConnector {
 
     /**
-     * Initializes a new instance of the {@link MockHrhis} class.
-     */
-    public MockHrhis() {
-    }
-
-    /**
      * Gets the response.
      *
      * @return Returns the response.
