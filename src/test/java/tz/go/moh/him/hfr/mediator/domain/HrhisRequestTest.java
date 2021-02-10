@@ -11,14 +11,14 @@ import java.io.InputStream;
 /**
  * Contains tests for the {@link HfrRequest} class.
  */
-public class HfrRequestTest {
+public class HrhisRequestTest {
 
     /**
      * Tests the deserialization of an HFR request.
      */
     @Test
     public void testDeserializeHfrRequest() {
-        InputStream stream = HfrRequestTest.class.getClassLoader().getResourceAsStream("request.json");
+        InputStream stream = HrhisRequestTest.class.getClassLoader().getResourceAsStream("request.json");
 
         Assert.assertNotNull(stream);
 

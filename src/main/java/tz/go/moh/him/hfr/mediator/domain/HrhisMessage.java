@@ -53,24 +53,6 @@ public class HrhisMessage {
         this.setOrganisationUnitGroups(new ArrayList<>());
     }
 
-    /**
-     * Initializes a new instance of the {@link HrhisMessage} class.
-     *
-     * @param name        The name.
-     * @param code        The code.
-     * @param shortName   The short name.
-     * @param coordinates The coordinates.
-     * @param active      If the facility is active.
-     */
-    public HrhisMessage(String name, String code, String shortName, String coordinates, boolean active) {
-        this();
-        this.setName(name);
-        this.setCode(code);
-        this.setShortName(shortName);
-        this.setCoordinates(coordinates);
-        this.setActive(active);
-    }
-
     public String getName() {
         return name;
     }

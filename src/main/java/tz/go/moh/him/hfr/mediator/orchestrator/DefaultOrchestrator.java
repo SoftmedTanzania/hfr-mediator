@@ -21,7 +21,7 @@ public class DefaultOrchestrator extends UntypedActor {
     /**
      * Initializes a new instance of the {@link DefaultOrchestrator} class.
      *
-     * @param config
+     * @param config The configuration.
      */
     public DefaultOrchestrator(MediatorConfig config) {
         this.config = config;

@@ -14,9 +14,9 @@ import java.util.Arrays;
 import java.util.Collections;
 
 /**
- * Contains tests for the {@link FacilityOrchestrator} class.
+ * Contains tests for the {@link DefaultOrchestrator} class.
  */
-public class FacilityOrchestratorOrchestratorTest extends BaseOrchestratorTest {
+public class DefaultOrchestratorTest extends BaseOrchestratorTest {
 
     /**
      * Tests the mediator.
@@ -26,9 +26,9 @@ public class FacilityOrchestratorOrchestratorTest extends BaseOrchestratorTest {
     @Test
     public void testHfrRequest() throws Exception {
         new JavaTestKit(system) {{
-            final ActorRef orchestrator = system.actorOf(Props.create(FacilityOrchestrator.class, configuration));
+            final ActorRef orchestrator = system.actorOf(Props.create(DefaultOrchestrator.class, configuration));
 
-            InputStream stream = FacilityOrchestratorOrchestratorTest.class.getClassLoader().getResourceAsStream("request.json");
+            InputStream stream = DefaultOrchestratorTest.class.getClassLoader().getResourceAsStream("request.json");
 
             Assert.assertNotNull(stream);
 
@@ -40,7 +40,7 @@ public class FacilityOrchestratorOrchestratorTest extends BaseOrchestratorTest {
                     "http",
                     null,
                     null,
-                    "/hfr",
+                    "/hfr-inbound",
                     IOUtils.toString(stream),
                     Collections.singletonMap("Content-Type", "application/json"),
                     Collections.emptyList()

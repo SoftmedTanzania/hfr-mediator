@@ -12,7 +12,6 @@ import org.openhim.mediator.engine.MediatorConfig;
 import org.openhim.mediator.engine.testing.MockLauncher;
 import org.openhim.mediator.engine.testing.TestingUtils;
 import tz.go.moh.him.hfr.mediator.mock.MockDestination;
-import tz.go.moh.him.hfr.mediator.mock.MockOpenHIM;
 
 import java.io.File;
 import java.io.InputStream;
@@ -111,7 +110,6 @@ public abstract class BaseOrchestratorTest {
         List<MockLauncher.ActorToLaunch> actorsToLaunch = new LinkedList<>();
 
         actorsToLaunch.add(new MockLauncher.ActorToLaunch("http-connector", MockDestination.class));
-        actorsToLaunch.add(new MockLauncher.ActorToLaunch("core-api-connector", MockOpenHIM.class));
 
         TestingUtils.launchActors(system, configuration.getName(), actorsToLaunch);
     }

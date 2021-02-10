@@ -14,6 +14,7 @@ import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
 import org.openhim.mediator.engine.messages.MediatorHTTPResponse;
 import tz.go.moh.him.hfr.mediator.domain.HfrRequest;
 import tz.go.moh.him.hfr.mediator.domain.HrhisMessage;
+import tz.go.moh.him.hfr.mediator.utils.HfrMessageConversionUtility;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -114,7 +115,7 @@ public class HrhisOrchestrator extends UntypedActor {
             host = scheme + "://" + host + ":" + port + path;
 
             MediatorHTTPRequest request = new MediatorHTTPRequest(workingRequest.getRequestHandler(), getSelf(), "Sending data", "POST",
-                    host, gson.toJson(convertToHRHISPayload(hfrRequest)), headers, parameters);
+                    host, gson.toJson(HfrMessageConversionUtility.convertToHRHISPayload(hfrRequest)), headers, parameters);
 
             ActorSelection httpConnector = getContext().actorSelection(config.userPathFor("http-connector"));
             httpConnector.tell(request, getSelf());
@@ -124,69 +125,6 @@ public class HrhisOrchestrator extends UntypedActor {
         } else {
             unhandled(msg);
         }
-    }
-
-    /**
-     * Converts an {@link HfrRequest} instance to an {@link HrhisMessage} instance.
-     *
-     * @param hfrRequest The HFR request.
-     * @return Returns the converted message.
-     */
-    public HrhisMessage convertToHRHISPayload(HfrRequest hfrRequest) {
-        HrhisMessage hrhisMessage = new HrhisMessage();
-        hrhisMessage.setName(hfrRequest.getName() + " " + hfrRequest.getFacilityType());
-        hrhisMessage.setCode(hfrRequest.getFacilityIdNumber());
-        hrhisMessage.setShortName(hfrRequest.getName());
-
-        hrhisMessage.setCoordinates("[" + hfrRequest.getLatitude() + "," + hfrRequest.getLongitude() + "]");
-
-        // check for operating using a case insensitive match
-        if (hfrRequest.getOperatingStatus() != null && !"".equals(hfrRequest.getOperatingStatus())) {
-            hrhisMessage.setActive(hfrRequest.getOperatingStatus().equalsIgnoreCase("Operating"));
-        }
-
-
-        // Adding parent to the payload
-        Map<String, Object> parent = new HashMap<String, Object>() {{
-            put("code", hfrRequest.getCouncilCode());
-        }};
-
-        hrhisMessage.setParent(parent);
-
-        // Adding organisation unit codes
-        List<Map<String, Object>> organisationUnitGroups = new ArrayList<Map<String, Object>>();
-
-        // Adding hfr facility type group code
-        Map<String, Object> facilityTypeGroupCode = new HashMap<String, Object>() {{
-            put("code", hfrRequest.getFacilityTypeGroupCode());
-        }};
-
-        organisationUnitGroups.add(facilityTypeGroupCode);
-
-        // Adding hfr facility type code
-        Map<String, Object> facilityTypeCode = new HashMap<String, Object>() {{
-            put("code", hfrRequest.getFacilityTypeCode());
-        }};
-
-        organisationUnitGroups.add(facilityTypeCode);
-
-        // Adding hfr ownership code
-        Map<String, Object> ownershipCode = new HashMap<String, Object>() {{
-            put("code", hfrRequest.getOwnershipCode());
-        }};
-
-        organisationUnitGroups.add(ownershipCode);
-
-        // Adding hfr ownership group code
-        Map<String, Object> ownershipGroupCode = new HashMap<String, Object>() {{
-            put("code", hfrRequest.getOwnershipGroupCode());
-        }};
-
-        organisationUnitGroups.add(ownershipGroupCode);
-
-        hrhisMessage.setOrganisationUnitGroups(organisationUnitGroups);
-
-        return hrhisMessage;
     }
 }
 
