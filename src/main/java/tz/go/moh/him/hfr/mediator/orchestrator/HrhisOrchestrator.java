@@ -13,7 +13,7 @@ import org.openhim.mediator.engine.MediatorConfig;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
 import org.openhim.mediator.engine.messages.MediatorHTTPResponse;
 import tz.go.moh.him.hfr.mediator.domain.HfrRequest;
-import tz.go.moh.him.hfr.mediator.utils.HfrMessageConversionUtility;
+import tz.go.moh.him.hfr.mediator.utils.HfrMessageConversionUtils;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -114,7 +114,7 @@ public class HrhisOrchestrator extends UntypedActor {
             host = scheme + "://" + host + ":" + port + path;
 
             MediatorHTTPRequest request = new MediatorHTTPRequest(workingRequest.getRequestHandler(), getSelf(), "Sending data", "POST",
-                    host, gson.toJson(HfrMessageConversionUtility.convertToHRHISPayload(hfrRequest)), headers, parameters);
+                    host, gson.toJson(HfrMessageConversionUtils.convertToHRHISPayload(hfrRequest)), headers, parameters);
 
             ActorSelection httpConnector = getContext().actorSelection(config.userPathFor("http-connector"));
             httpConnector.tell(request, getSelf());

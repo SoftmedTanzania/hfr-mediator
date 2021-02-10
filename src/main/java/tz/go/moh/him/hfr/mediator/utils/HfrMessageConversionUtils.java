@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * Contains methods to convert HFR messages to alternate formats.
  */
-public class HfrMessageConversionUtility {
+public class HfrMessageConversionUtils {
 
     /**
      * Converts an {@link HfrRequest} instance to an {@link HrhisMessage} instance.

@@ -14,17 +14,11 @@ import tz.go.moh.him.hfr.mediator.domain.HfrRequest;
 public class DefaultOrchestrator extends UntypedActor {
 
     /**
-     * The mediator config.
-     */
-    private final MediatorConfig config;
-
-    /**
      * Initializes a new instance of the {@link DefaultOrchestrator} class.
      *
      * @param config The configuration.
      */
-    public DefaultOrchestrator(MediatorConfig config) {
-        this.config = config;
+    public DefaultOrchestrator(@SuppressWarnings("unused") MediatorConfig config) {
     }
 
     /**
