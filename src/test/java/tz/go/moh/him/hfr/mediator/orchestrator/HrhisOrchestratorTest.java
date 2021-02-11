@@ -20,6 +20,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Contains tests for the {@link HrhisOrchestrator} class.
@@ -74,6 +75,7 @@ public class HrhisOrchestratorTest extends BaseOrchestratorTest {
                     if (msg instanceof FinishRequest) {
                         return msg;
                     }
+                    fail();
                     throw noMatch();
                 }
             }.get();
