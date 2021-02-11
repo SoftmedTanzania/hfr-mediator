@@ -32,7 +32,6 @@ public class HfrMessageConversionUtils {
             hrhisMessage.setActive(hfrRequest.getOperatingStatus().equalsIgnoreCase("Operating"));
         }
 
-
         // Adding parent to the payload
         Map<String, Object> parent = new HashMap<String, Object>() {{
             put("code", hfrRequest.getCouncilCode());
