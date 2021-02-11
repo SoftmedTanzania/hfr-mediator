@@ -21,7 +21,7 @@ public class FacilityOrchestratorTest extends BaseOrchestratorTest {
     /**
      * Tests the mediator.
      *
-     * @throws Exception if an exception occurs
+     * @throws Exception if an exception occurs.
      */
     @Test
     public void testHfrRequest() throws Exception {

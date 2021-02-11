@@ -41,10 +41,10 @@ public class HrhisOrchestratorTest extends BaseOrchestratorTest {
     /**
      * Tests the mediator.
      *
-     * @throws IOException if an I/O exception occurs.
+     * @throws Exception if an exception occurs.
      */
     @Test
-    public void testHrhisRequest() throws IOException {
+    public void testHrhisRequest() throws Exception {
         new JavaTestKit(system) {{
             final ActorRef orchestrator = system.actorOf(Props.create(HrhisOrchestrator.class, configuration));
 
@@ -78,7 +78,7 @@ public class HrhisOrchestratorTest extends BaseOrchestratorTest {
                 }
             }.get();
 
-            assertTrue(Arrays.stream(out).anyMatch(c -> c instanceof FinishRequest));
+            Assert.assertTrue(Arrays.stream(out).anyMatch(c -> c instanceof FinishRequest));
         }};
     }
 }
