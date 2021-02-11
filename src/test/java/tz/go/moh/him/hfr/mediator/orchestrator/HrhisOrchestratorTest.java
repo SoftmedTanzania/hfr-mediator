@@ -23,7 +23,9 @@ import java.util.List;
  */
 public class HrhisOrchestratorTest extends BaseOrchestratorTest {
 
-
+    /**
+     * Runs initialization before each test execution.
+     */
     @Override
     public void before() {
         List<MockLauncher.ActorToLaunch> actorsToLaunch = new LinkedList<>();
@@ -69,6 +71,7 @@ public class HrhisOrchestratorTest extends BaseOrchestratorTest {
                     if (msg instanceof FinishRequest) {
                         return msg;
                     }
+                    Assert.fail();
                     throw noMatch();
                 }
             }.get();
