@@ -41,7 +41,7 @@ public class HrhisOrchestratorTest extends BaseOrchestratorTest {
      * @throws Exception if an exception occurs
      */
     @Test
-    public void testHrhisRequest() throws Exception {
+    public void testHrhisRequest() {
         new JavaTestKit(system) {{
             final ActorRef orchestrator = system.actorOf(Props.create(HrhisOrchestrator.class, configuration));
 
@@ -49,34 +49,37 @@ public class HrhisOrchestratorTest extends BaseOrchestratorTest {
 
             Assert.assertNotNull(stream);
 
-            MediatorHTTPRequest request = new MediatorHTTPRequest(
-                    getRef(),
-                    getRef(),
-                    "unit-test",
-                    "POST",
-                    "http",
-                    null,
-                    null,
-                    "/hfr-hrhis",
-                    IOUtils.toString(stream),
-                    Collections.singletonMap("Content-Type", "application/json"),
-                    Collections.emptyList()
-            );
+            try {
+                MediatorHTTPRequest request = new MediatorHTTPRequest(
+                        getRef(),
+                        getRef(),
+                        "unit-test",
+                        "POST",
+                        "http",
+                        null,
+                        null,
+                        "/hfr-hrhis",
+                        IOUtils.toString(stream),
+                        Collections.singletonMap("Content-Type", "application/json"),
+                        Collections.emptyList()
+                );
 
-            orchestrator.tell(request, getRef());
+                orchestrator.tell(request, getRef());
 
-            final Object[] out = new ReceiveWhile<Object>(Object.class, duration("3 seconds")) {
-                @Override
-                protected Object match(Object msg) {
-                    if (msg instanceof FinishRequest) {
-                        return msg;
+                final Object[] out = new ReceiveWhile<Object>(Object.class, duration("3 seconds")) {
+                    @Override
+                    protected Object match(Object msg) {
+                        if (msg instanceof FinishRequest) {
+                            return msg;
+                        }
+                        throw noMatch();
                     }
-                    Assert.fail();
-                    throw noMatch();
-                }
-            }.get();
+                }.get();
 
-            Assert.assertTrue(Arrays.stream(out).anyMatch(c -> c instanceof FinishRequest));
+                Assert.assertTrue(Arrays.stream(out).anyMatch(c -> c instanceof FinishRequest));
+            } catch (Exception e) {
+                Assert.fail();
+            }
         }};
     }
 }
