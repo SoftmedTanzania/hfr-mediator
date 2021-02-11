@@ -3,8 +3,6 @@ package tz.go.moh.him.hfr.mediator.domain;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.HashMap;
-
 /**
  * Represents a Health Facility Registry request message.
  */

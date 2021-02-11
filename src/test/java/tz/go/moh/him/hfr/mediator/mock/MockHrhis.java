@@ -6,7 +6,8 @@ import org.junit.Assert;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
 import org.openhim.mediator.engine.testing.MockHTTPConnector;
 import tz.go.moh.him.hfr.mediator.domain.HfrRequest;
-import tz.go.moh.him.hfr.mediator.orchestrator.FacilityOrchestratorTest;
+import tz.go.moh.him.hfr.mediator.domain.HrhisMessage;
+import tz.go.moh.him.hfr.mediator.orchestrator.HrhisOrchestratorTest;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,13 +17,7 @@ import java.util.Map;
 /**
  * Represents a mock destination.
  */
-public class MockDestination extends MockHTTPConnector {
-
-    /**
-     * Initializes a new instance of the {@link MockDestination} class.
-     */
-    public MockDestination() {
-    }
+public class MockHrhis extends MockHTTPConnector {
 
     /**
      * Gets the response.
@@ -62,7 +57,7 @@ public class MockDestination extends MockHTTPConnector {
     @Override
     public void executeOnReceive(MediatorHTTPRequest msg) {
 
-        InputStream stream = FacilityOrchestratorTest.class.getClassLoader().getResourceAsStream("request.json");
+        InputStream stream = HrhisOrchestratorTest.class.getClassLoader().getResourceAsStream("request.json");
 
         Assert.assertNotNull(stream);
 
@@ -76,17 +71,13 @@ public class MockDestination extends MockHTTPConnector {
             throw new RuntimeException(e);
         }
 
-        HfrRequest actual = gson.fromJson(msg.getBody(), HfrRequest.class);
+        HrhisMessage actual = gson.fromJson(msg.getBody(), HrhisMessage.class);
 
         Assert.assertNotNull(actual);
         Assert.assertNotNull(expected);
 
-        Assert.assertEquals(expected.getCommonFacilityName(), actual.getCommonFacilityName());
-        Assert.assertEquals(expected.getCouncil(), actual.getCouncil());
-        Assert.assertEquals(expected.getCouncilCode(), actual.getCouncilCode());
-        Assert.assertEquals(expected.getCreatedAt(), actual.getCreatedAt());
-        Assert.assertEquals(expected.getDistrict(), actual.getDistrict());
-        Assert.assertEquals(expected.getFacilityIdNumber(), actual.getFacilityIdNumber());
-        Assert.assertEquals(expected.getFacilityType(), actual.getFacilityType());
+        Assert.assertEquals(expected.getName() + " " + expected.getFacilityType(), actual.getName());
+        Assert.assertEquals(expected.getFacilityIdNumber(), actual.getCode());
+        Assert.assertEquals(expected.getName(), actual.getShortName());
     }
 }
