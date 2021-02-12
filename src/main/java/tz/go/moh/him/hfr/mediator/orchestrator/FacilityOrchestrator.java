@@ -116,8 +116,6 @@ public class FacilityOrchestrator extends UntypedActor {
 
             host = scheme + "://" + host + ":" + port + path;
 
-            System.out.println(host);
-
             MediatorHTTPRequest request = new MediatorHTTPRequest(workingRequest.getRequestHandler(), getSelf(), host, "POST",
                     host, mapper.writeValueAsString(hfrRequest), headers, parameters);
 
