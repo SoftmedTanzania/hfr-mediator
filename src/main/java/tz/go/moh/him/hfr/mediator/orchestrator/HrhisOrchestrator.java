@@ -117,7 +117,7 @@ public class HrhisOrchestrator extends UntypedActor {
 
             host = scheme + "://" + host + ":" + port + path;
 
-            MediatorHTTPRequest request = new MediatorHTTPRequest(workingRequest.getRequestHandler(), getSelf(), "Sending data", "POST",
+            MediatorHTTPRequest request = new MediatorHTTPRequest(workingRequest.getRequestHandler(), getSelf(), host, "POST",
                     host, mapper.writeValueAsString(HfrMessageConversionUtils.convertToHRHISPayload(hfrRequest)), headers, parameters);
 
             ActorSelection httpConnector = getContext().actorSelection(config.userPathFor("http-connector"));
