@@ -58,6 +58,7 @@ public class HfrRequestTest {
     public void testSerializeHfrRequest() throws JsonProcessingException {
         HfrRequest request = new HfrRequest();
 
+        request.setClosedDate("2021-01-01");
         request.setCommonFacilityName("Test Facility");
         request.setCouncil("Test Council");
         request.setCouncilCode("Test Council Code");
@@ -72,6 +73,7 @@ public class HfrRequestTest {
         request.setLatitude("-6.801501");
         request.setLongitude("39.274157");
         request.setName("Test Facility Name");
+        request.setOpenedDate("1985-01-01");
         request.setOperatingStatus("Operating");
         request.setOperatingStatusChangeClosedToOperational("N");
         request.setOperatingStatusChangeOpenToClosed("N");
@@ -95,6 +97,7 @@ public class HfrRequestTest {
 
         String actual = mapper.writeValueAsString(request);
 
+        Assert.assertTrue(actual.contains(request.getClosedDate()));
         Assert.assertTrue(actual.contains(request.getCommonFacilityName()));
         Assert.assertTrue(actual.contains(request.getCouncil()));
         Assert.assertTrue(actual.contains(request.getCouncilCode()));
@@ -109,6 +112,7 @@ public class HfrRequestTest {
         Assert.assertTrue(actual.contains(request.getLatitude()));
         Assert.assertTrue(actual.contains(request.getLongitude()));
         Assert.assertTrue(actual.contains(request.getName()));
+        Assert.assertTrue(actual.contains(request.getOpenedDate()));
         Assert.assertTrue(actual.contains(request.getOperatingStatus()));
         Assert.assertTrue(actual.contains(request.getOperatingStatusChangeClosedToOperational()));
         Assert.assertTrue(actual.contains(request.getOperatingStatusChangeOpenToClosed()));
