@@ -100,6 +100,7 @@ public abstract class BaseOrchestratorTest {
      */
     @After
     public void after() {
+        system = ActorSystem.create();
     }
 
     /**

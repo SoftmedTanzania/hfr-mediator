@@ -4,7 +4,8 @@ import akka.actor.ActorSelection;
 import akka.actor.UntypedActor;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
-import com.google.gson.Gson;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.http.HttpHeaders;
@@ -55,7 +56,7 @@ public class HrhisOrchestrator extends UntypedActor {
      * @param msg The received message.
      */
     @Override
-    public void onReceive(Object msg) {
+    public void onReceive(Object msg) throws JsonProcessingException {
         if (msg instanceof MediatorHTTPRequest) {
 
             workingRequest = (MediatorHTTPRequest) msg;
@@ -68,9 +69,9 @@ public class HrhisOrchestrator extends UntypedActor {
 
             List<Pair<String, String>> parameters = new ArrayList<>();
 
-            Gson gson = new Gson();
+            ObjectMapper mapper = new ObjectMapper();
 
-            HfrRequest hfrRequest = gson.fromJson(workingRequest.getBody(), HfrRequest.class);
+            HfrRequest hfrRequest = mapper.readValue(workingRequest.getBody(), HfrRequest.class);
 
             String host;
             int port;
@@ -114,7 +115,7 @@ public class HrhisOrchestrator extends UntypedActor {
             host = scheme + "://" + host + ":" + port + path;
 
             MediatorHTTPRequest request = new MediatorHTTPRequest(workingRequest.getRequestHandler(), getSelf(), "Sending data", "POST",
-                    host, gson.toJson(HfrMessageConversionUtils.convertToHRHISPayload(hfrRequest)), headers, parameters);
+                    host, mapper.writeValueAsString(HfrMessageConversionUtils.convertToHRHISPayload(hfrRequest)), headers, parameters);
 
             ActorSelection httpConnector = getContext().actorSelection(config.userPathFor("http-connector"));
             httpConnector.tell(request, getSelf());

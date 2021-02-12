@@ -23,7 +23,6 @@ import java.util.List;
  */
 public class HrhisOrchestratorTest extends BaseOrchestratorTest {
 
-
     @Override
     public void before() {
         List<MockLauncher.ActorToLaunch> actorsToLaunch = new LinkedList<>();
