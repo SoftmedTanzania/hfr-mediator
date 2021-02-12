@@ -2,13 +2,11 @@ package tz.go.moh.him.hfr.mediator.mock;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
 import org.openhim.mediator.engine.testing.MockHTTPConnector;
 import tz.go.moh.him.hfr.mediator.domain.HfrRequest;
-import tz.go.moh.him.hfr.mediator.domain.HrhisMessage;
 import tz.go.moh.him.hfr.mediator.orchestrator.FacilityOrchestratorTest;
 
 import java.io.IOException;
