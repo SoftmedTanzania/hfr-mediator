@@ -69,13 +69,16 @@ public class HfrMessageConversionUtils {
             put("code", hfrRequest.getOwnershipGroupCode());
         }};
 
-        //Adding opening date
-        if(!StringUtils.isBlank(hfrRequest.getOpenedDate()))
+        // Adding opening date
+        if (!StringUtils.isBlank(hfrRequest.getOpenedDate())) {
             hrhisMessage.setOpeningDate(hfrRequest.getOpenedDate());
+        }
 
-        //Adding closing date
-        if(!StringUtils.isBlank(hfrRequest.getClosedDate()))
+
+        // Adding closing date
+        if (!StringUtils.isBlank(hfrRequest.getClosedDate())) {
             hrhisMessage.setClosingDate(hfrRequest.getClosedDate());
+        }
 
         organisationUnitGroups.add(ownershipGroupCode);
 

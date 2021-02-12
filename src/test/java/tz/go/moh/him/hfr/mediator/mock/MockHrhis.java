@@ -1,6 +1,7 @@
 package tz.go.moh.him.hfr.mediator.mock;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
@@ -61,17 +62,22 @@ public class MockHrhis extends MockHTTPConnector {
 
         Assert.assertNotNull(stream);
 
-        Gson gson = new Gson();
+        ObjectMapper mapper = new ObjectMapper();
 
         HfrRequest expected;
 
         try {
-            expected = gson.fromJson(IOUtils.toString(stream), HfrRequest.class);
+            expected = mapper.readValue(IOUtils.toString(stream), HfrRequest.class);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        HrhisMessage actual = gson.fromJson(msg.getBody(), HrhisMessage.class);
+        HrhisMessage actual = null;
+        try {
+            actual = mapper.readValue(msg.getBody(), HrhisMessage.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
 
         Assert.assertNotNull(actual);
         Assert.assertNotNull(expected);
@@ -80,6 +86,6 @@ public class MockHrhis extends MockHTTPConnector {
         Assert.assertEquals(expected.getFacilityIdNumber(), actual.getCode());
         Assert.assertEquals(expected.getName(), actual.getShortName());
         Assert.assertEquals(expected.getOpenedDate(), actual.getOpeningDate());
-        Assert.assertEquals(null, actual.getClosingDate());
+        Assert.assertNull(actual.getClosingDate());
     }
 }

@@ -1,7 +1,7 @@
 package tz.go.moh.him.hfr.mediator.orchestrator;
 
 import akka.actor.UntypedActor;
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpStatus;
 import org.openhim.mediator.engine.MediatorConfig;
 import org.openhim.mediator.engine.messages.FinishRequest;
@@ -30,15 +30,11 @@ public class DefaultOrchestrator extends UntypedActor {
     public void onReceive(Object msg) {
         if (msg instanceof MediatorHTTPRequest) {
             FinishRequest finishRequest = null;
-
             try {
-
                 finishRequest = new FinishRequest("Success", "text/plain", HttpStatus.SC_OK);
-                Gson gson = new Gson();
+                ObjectMapper mapper = new ObjectMapper();
 
-                // attempt to deserialize the message
-                // if this fails, we know the message is in a bad format
-                gson.fromJson(((MediatorHTTPRequest) msg).getBody(), HfrRequest.class);
+                mapper.readValue(((MediatorHTTPRequest) msg).getBody(), HfrRequest.class);
             } catch (Exception e) {
                 finishRequest = new FinishRequest("Bad Request", "text/plain", HttpStatus.SC_BAD_REQUEST);
             } finally {

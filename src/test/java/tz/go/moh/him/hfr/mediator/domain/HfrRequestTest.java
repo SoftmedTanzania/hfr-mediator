@@ -1,5 +1,7 @@
 package tz.go.moh.him.hfr.mediator.domain;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
@@ -17,7 +19,7 @@ public class HfrRequestTest {
      * Tests the deserialization of an HFR request.
      */
     @Test
-    public void testDeserializeHfrRequest() {
+    public void testDeserializeHfrRequest() throws JsonProcessingException {
         InputStream stream = HfrRequestTest.class.getClassLoader().getResourceAsStream("request.json");
 
         Assert.assertNotNull(stream);
@@ -32,9 +34,9 @@ public class HfrRequestTest {
 
         Assert.assertNotNull(data);
 
-        Gson gson = new Gson();
+        ObjectMapper mapper = new ObjectMapper();
 
-        HfrRequest hfrRequest = gson.fromJson(data, HfrRequest.class);
+        HfrRequest hfrRequest = mapper.readValue(data, HfrRequest.class);
 
         Assert.assertEquals("105651-4", hfrRequest.getFacilityIdNumber());
         Assert.assertEquals("Muhimbili", hfrRequest.getName());
