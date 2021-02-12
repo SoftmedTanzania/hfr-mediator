@@ -4,6 +4,7 @@ import akka.actor.ActorSelection;
 import akka.actor.UntypedActor;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.codec.binary.Base64;
@@ -70,6 +71,8 @@ public class FacilityOrchestrator extends UntypedActor {
 
             ObjectMapper mapper = new ObjectMapper();
 
+            mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
             HfrRequest hfrRequest = mapper.readValue(workingRequest.getBody(), HfrRequest.class);
 
             String host;
@@ -113,7 +116,7 @@ public class FacilityOrchestrator extends UntypedActor {
 
             host = scheme + "://" + host + ":" + port + path;
 
-            MediatorHTTPRequest request = new MediatorHTTPRequest(workingRequest.getRequestHandler(), getSelf(), "Sending data", "POST",
+            MediatorHTTPRequest request = new MediatorHTTPRequest(workingRequest.getRequestHandler(), getSelf(), host, "POST",
                     host, mapper.writeValueAsString(hfrRequest), headers, parameters);
 
             ActorSelection httpConnector = getContext().actorSelection(config.userPathFor("http-connector"));

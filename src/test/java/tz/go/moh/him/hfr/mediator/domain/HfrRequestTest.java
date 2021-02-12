@@ -1,8 +1,8 @@
 package tz.go.moh.him.hfr.mediator.domain;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Test;
@@ -36,6 +36,8 @@ public class HfrRequestTest {
 
         ObjectMapper mapper = new ObjectMapper();
 
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
         HfrRequest hfrRequest = mapper.readValue(data, HfrRequest.class);
 
         Assert.assertEquals("105651-4", hfrRequest.getFacilityIdNumber());
@@ -53,9 +55,10 @@ public class HfrRequestTest {
      * Tests the serialization of an HFR request.
      */
     @Test
-    public void testSerializeHfrRequest() {
+    public void testSerializeHfrRequest() throws JsonProcessingException {
         HfrRequest request = new HfrRequest();
 
+        request.setClosedDate("2021-01-01");
         request.setCommonFacilityName("Test Facility");
         request.setCouncil("Test Council");
         request.setCouncilCode("Test Council Code");
@@ -70,6 +73,7 @@ public class HfrRequestTest {
         request.setLatitude("-6.801501");
         request.setLongitude("39.274157");
         request.setName("Test Facility Name");
+        request.setOpenedDate("1985-01-01");
         request.setOperatingStatus("Operating");
         request.setOperatingStatusChangeClosedToOperational("N");
         request.setOperatingStatusChangeOpenToClosed("N");
@@ -87,10 +91,13 @@ public class HfrRequestTest {
         request.setVillage("Test Village");
         request.setZone("Test Zone");
 
-        Gson gson = new Gson();
+        ObjectMapper mapper = new ObjectMapper();
 
-        String actual = gson.toJson(request, HfrRequest.class);
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
+        String actual = mapper.writeValueAsString(request);
+
+        Assert.assertTrue(actual.contains(request.getClosedDate()));
         Assert.assertTrue(actual.contains(request.getCommonFacilityName()));
         Assert.assertTrue(actual.contains(request.getCouncil()));
         Assert.assertTrue(actual.contains(request.getCouncilCode()));
@@ -105,6 +112,7 @@ public class HfrRequestTest {
         Assert.assertTrue(actual.contains(request.getLatitude()));
         Assert.assertTrue(actual.contains(request.getLongitude()));
         Assert.assertTrue(actual.contains(request.getName()));
+        Assert.assertTrue(actual.contains(request.getOpenedDate()));
         Assert.assertTrue(actual.contains(request.getOperatingStatus()));
         Assert.assertTrue(actual.contains(request.getOperatingStatusChangeClosedToOperational()));
         Assert.assertTrue(actual.contains(request.getOperatingStatusChangeOpenToClosed()));

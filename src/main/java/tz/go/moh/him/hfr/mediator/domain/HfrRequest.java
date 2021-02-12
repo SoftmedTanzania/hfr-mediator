@@ -1,7 +1,6 @@
 package tz.go.moh.him.hfr.mediator.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.gson.annotations.SerializedName;
 
 /**
  * Represents a Health Facility Registry request message.
@@ -12,189 +11,158 @@ public class HfrRequest {
      * The facility id number.
      */
     @JsonProperty("Fac_IDNumber")
-    @SerializedName("Fac_IDNumber")
     private String facilityIdNumber;
     /**
      * The facility name.
      */
     @JsonProperty("Name")
-    @SerializedName("Name")
     private String name;
     /**
      * The common facility name.
      */
     @JsonProperty("Comm_FacName")
-    @SerializedName("Comm_FacName")
     private String commonFacilityName;
     /**
      * The zone.
      */
     @JsonProperty("Zone")
-    @SerializedName("Zone")
     private String zone;
     /**
      * The region.
      */
     @JsonProperty("Region")
-    @SerializedName("Region")
     private String region;
     /**
      * The region code.
      */
     @JsonProperty("Region_Code")
-    @SerializedName("Region_Code")
     private String regionCode;
     /**
      * The district.
      */
     @JsonProperty("District")
-    @SerializedName("District")
     private String district;
     /**
      * The district code.
      */
     @JsonProperty("District_Code")
-    @SerializedName("District_Code")
     private String districtCode;
     /**
      * The council.
      */
     @JsonProperty("Council")
-    @SerializedName("Council")
     private String council;
     /**
      * The council code.
      */
     @JsonProperty("Council_Code")
-    @SerializedName("Council_Code")
     private String councilCode;
     /**
      * The ward.
      */
     @JsonProperty("Ward")
-    @SerializedName("Ward")
     private String ward;
     /**
      * The village street.
      */
     @JsonProperty("Village")
-    @SerializedName("Village")
     private String village;
     /**
      * The facility type group.
      */
     @JsonProperty("FacilityTypeGroup")
-    @SerializedName("FacilityTypeGroup")
     private String facilityTypeGroup;
     /**
      * The facility type group code.
      */
     @JsonProperty("FacilityTypeGroupCode")
-    @SerializedName("FacilityTypeGroupCode")
     private String facilityTypeGroupCode;
     /**
      * The facility type.
      */
     @JsonProperty("FacilityType")
-    @SerializedName("FacilityType")
     private String facilityType;
     /**
      * The facility type code.
      */
     @JsonProperty("FacilityTypeCode")
-    @SerializedName("FacilityTypeCode")
     private String facilityTypeCode;
     /**
      * The ownership group.
      */
     @JsonProperty("OwnershipGroup")
-    @SerializedName("OwnershipGroup")
     private String ownershipGroup;
     /**
      * The ownership group code.
      */
     @JsonProperty("OwnershipGroupCode")
-    @SerializedName("OwnershipGroupCode")
     private String ownershipGroupCode;
     /**
      * The ownership.
      */
     @JsonProperty("Ownership")
-    @SerializedName("Ownership")
     private String ownership;
     /**
      * The ownership code.
      */
     @JsonProperty("OwnershipCode")
-    @SerializedName("OwnershipCode")
     private String ownershipCode;
     /**
      * The operating status.
      */
     @JsonProperty("OperatingStatus")
-    @SerializedName("OperatingStatus")
     private String operatingStatus;
     /**
      * The latitude.
      */
     @JsonProperty("Latitude")
-    @SerializedName("Latitude")
     private String latitude;
     /**
      * The longitude.
      */
     @JsonProperty("Longitude")
-    @SerializedName("Longitude")
     private String longitude;
     /**
      * The registration status.
      */
     @JsonProperty("RegistrationStatus")
-    @SerializedName("RegistrationStatus")
     private String registrationStatus;
     /**
      * The date time at which the record was created.
      */
     @JsonProperty("CreatedAt")
-    @SerializedName("CreatedAt")
     private String createdAt;
     /**
      * The date time at which the record was updated.
      */
     @JsonProperty("UpdatedAt")
-    @SerializedName("UpdatedAt")
     private String updatedAt;
 
     /**
      * The date time at which the facility was opened.
      */
     @JsonProperty("OpenedDate")
-    @SerializedName("OpenedDate")
     private String openedDate;
     /**
      * The date time at which the facility was closed.
      */
     @JsonProperty("ClosedDate")
-    @SerializedName("ClosedDate")
     private String closedDate;
 
     /**
      * The indicator as to whether the operating status changed from open to closed.
      */
     @JsonProperty("OSchangeOpenedtoClose")
-    @SerializedName("OSchangeOpenedtoClose")
     private String operatingStatusChangeOpenToClosed;
     /**
      * The indicator as to whether the operating status changed from closed to operational.
      */
     @JsonProperty("OSchangeClosedtoOperational")
-    @SerializedName("OSchangeClosedtoOperational")
     private String operatingStatusChangeClosedToOperational;
     /**
      * The indicator as to whether this message is a create or update.
      */
     @JsonProperty("PostorUpdate")
-    @SerializedName("PostorUpdate")
     private String postOrUpdate;
 
     /**

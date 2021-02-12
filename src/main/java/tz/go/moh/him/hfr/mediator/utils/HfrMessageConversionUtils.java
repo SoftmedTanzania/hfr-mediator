@@ -74,7 +74,6 @@ public class HfrMessageConversionUtils {
             hrhisMessage.setOpeningDate(hfrRequest.getOpenedDate());
         }
 
-
         // Adding closing date
         if (!StringUtils.isBlank(hfrRequest.getClosedDate())) {
             hrhisMessage.setClosingDate(hfrRequest.getClosedDate());

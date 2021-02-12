@@ -1,5 +1,6 @@
 package tz.go.moh.him.hfr.mediator.mock;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
@@ -63,6 +64,8 @@ public class MockHrhis extends MockHTTPConnector {
         Assert.assertNotNull(stream);
 
         ObjectMapper mapper = new ObjectMapper();
+
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
         HfrRequest expected;
 

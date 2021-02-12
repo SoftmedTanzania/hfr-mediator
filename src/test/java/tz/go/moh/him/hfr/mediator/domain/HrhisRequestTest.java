@@ -1,8 +1,8 @@
 package tz.go.moh.him.hfr.mediator.domain;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Test;
@@ -36,6 +36,8 @@ public class HrhisRequestTest {
 
         ObjectMapper mapper = new ObjectMapper();
 
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
         HfrRequest hfrRequest = mapper.readValue(data, HfrRequest.class);
 
         Assert.assertEquals("105651-4", hfrRequest.getFacilityIdNumber());
@@ -53,7 +55,7 @@ public class HrhisRequestTest {
      * Tests the serialization of an HFR request.
      */
     @Test
-    public void testSerializeHfrRequest() {
+    public void testSerializeHfrRequest() throws JsonProcessingException {
         HfrRequest request = new HfrRequest();
 
         request.setCommonFacilityName("Test Facility");
@@ -87,9 +89,11 @@ public class HrhisRequestTest {
         request.setVillage("Test Village");
         request.setZone("Test Zone");
 
-        Gson gson = new Gson();
+        ObjectMapper mapper = new ObjectMapper();
 
-        String actual = gson.toJson(request, HfrRequest.class);
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
+        String actual = mapper.writeValueAsString(request);
 
         Assert.assertTrue(actual.contains(request.getCommonFacilityName()));
         Assert.assertTrue(actual.contains(request.getCouncil()));

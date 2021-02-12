@@ -1,5 +1,7 @@
 package tz.go.moh.him.hfr.mediator.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,46 +15,55 @@ public class HrhisMessage {
     /**
      * The name.
      */
+    @JsonProperty("name")
     private String name;
 
     /**
      * The code.
      */
+    @JsonProperty("code")
     private String code;
 
     /**
      * The short name.
      */
+    @JsonProperty("shortName")
     private String shortName;
 
     /**
      * The facility Opening date.
      */
+    @JsonProperty("openingDate")
     private String openingDate;
 
     /**
      * The facility Closed Date.
      */
+    @JsonProperty("closingDate")
     private String closingDate;
 
     /**
      * The coordinates.
      */
+    @JsonProperty("coordinates")
     private String coordinates;
 
     /**
      * If the facility is active.
      */
+    @JsonProperty("active")
     private boolean active;
 
     /**
      * The parent.
      */
+    @JsonProperty("parent")
     private Map<String, Object> parent;
 
     /**
      * The organizational unit groups.
      */
+    @JsonProperty("organisationUnitGroups")
     private List<Map<String, Object>> organisationUnitGroups;
 
     /**
