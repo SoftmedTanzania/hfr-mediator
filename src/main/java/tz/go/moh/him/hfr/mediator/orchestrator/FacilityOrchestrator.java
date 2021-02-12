@@ -4,6 +4,7 @@ import akka.actor.ActorSelection;
 import akka.actor.UntypedActor;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.codec.binary.Base64;
@@ -69,6 +70,8 @@ public class FacilityOrchestrator extends UntypedActor {
             List<Pair<String, String>> parameters = new ArrayList<>();
 
             ObjectMapper mapper = new ObjectMapper();
+
+            mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
             HfrRequest hfrRequest = mapper.readValue(workingRequest.getBody(), HfrRequest.class);
 
