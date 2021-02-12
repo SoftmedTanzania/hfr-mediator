@@ -164,6 +164,20 @@ public class HfrRequest {
     @JsonProperty("UpdatedAt")
     @SerializedName("UpdatedAt")
     private String updatedAt;
+
+    /**
+     * The date time at which the facility was opened.
+     */
+    @JsonProperty("OpenedDate")
+    @SerializedName("OpenedDate")
+    private String openedDate;
+    /**
+     * The date time at which the facility was closed.
+     */
+    @JsonProperty("ClosedDate")
+    @SerializedName("ClosedDate")
+    private String closedDate;
+
     /**
      * The indicator as to whether the operating status changed from open to closed.
      */
@@ -419,5 +433,21 @@ public class HfrRequest {
 
     public void setPostOrUpdate(String postOrUpdate) {
         this.postOrUpdate = postOrUpdate;
+    }
+
+    public String getOpenedDate() {
+        return openedDate;
+    }
+
+    public void setOpenedDate(String openedDate) {
+        this.openedDate = openedDate;
+    }
+
+    public String getClosedDate() {
+        return closedDate;
+    }
+
+    public void setClosedDate(String closedDate) {
+        this.closedDate = closedDate;
     }
 }

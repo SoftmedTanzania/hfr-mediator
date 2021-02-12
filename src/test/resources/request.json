@@ -25,6 +25,8 @@
   "RegistrationStatus":"Registered",
   "CreatedAt":"2013-08-20T10:44:22.000Z",
   "UpdatedAt":"2017-10-27T05:54:48.000Z",
+  "OpenedDate": "2021-02-13",
+  "ClosedDate": "",
   "OSchangeOpenedtoClose":"Y",
   "OSchangeClosedtoOperational":"N",
   "PostorUpdate":"P"
