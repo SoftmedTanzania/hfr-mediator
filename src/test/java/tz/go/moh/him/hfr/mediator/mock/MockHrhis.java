@@ -79,5 +79,7 @@ public class MockHrhis extends MockHTTPConnector {
         Assert.assertEquals(expected.getName() + " " + expected.getFacilityType(), actual.getName());
         Assert.assertEquals(expected.getFacilityIdNumber(), actual.getCode());
         Assert.assertEquals(expected.getName(), actual.getShortName());
+        Assert.assertEquals(expected.getOpenedDate(), actual.getOpeningDate());
+        Assert.assertEquals(null, actual.getClosingDate());
     }
 }

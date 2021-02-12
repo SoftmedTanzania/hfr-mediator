@@ -1,5 +1,6 @@
 package tz.go.moh.him.hfr.mediator.utils;
 
+import org.codehaus.plexus.util.StringUtils;
 import tz.go.moh.him.hfr.mediator.domain.HfrRequest;
 import tz.go.moh.him.hfr.mediator.domain.HrhisMessage;
 
@@ -67,6 +68,14 @@ public class HfrMessageConversionUtils {
         Map<String, Object> ownershipGroupCode = new HashMap<String, Object>() {{
             put("code", hfrRequest.getOwnershipGroupCode());
         }};
+
+        //Adding opening date
+        if(!StringUtils.isBlank(hfrRequest.getOpenedDate()))
+            hrhisMessage.setOpeningDate(hfrRequest.getOpenedDate());
+
+        //Adding closing date
+        if(!StringUtils.isBlank(hfrRequest.getClosedDate()))
+            hrhisMessage.setClosingDate(hfrRequest.getClosedDate());
 
         organisationUnitGroups.add(ownershipGroupCode);
 

@@ -26,6 +26,16 @@ public class HrhisMessage {
     private String shortName;
 
     /**
+     * The facility Opening date.
+     */
+    private String openingDate;
+
+    /**
+     * The facility Closed Date.
+     */
+    private String closingDate;
+
+    /**
      * The coordinates.
      */
     private String coordinates;
@@ -99,6 +109,22 @@ public class HrhisMessage {
 
     public void setParent(Map<String, Object> parent) {
         this.parent = parent;
+    }
+
+    public String getOpeningDate() {
+        return openingDate;
+    }
+
+    public void setOpeningDate(String openingDate) {
+        this.openingDate = openingDate;
+    }
+
+    public String getClosingDate() {
+        return closingDate;
+    }
+
+    public void setClosingDate(String closingDate) {
+        this.closingDate = closingDate;
     }
 
     public List<Map<String, Object>> getOrganisationUnitGroups() {
