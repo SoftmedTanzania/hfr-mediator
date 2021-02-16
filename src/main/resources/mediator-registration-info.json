@@ -1,11 +1,11 @@
 {
   "urn": "urn:uuid:E25FBC6F-4404-47EB-90C6-A9C89FE0A145",
   "version": "0.1.0",
-  "name": "HFR Mediator DHIS2",
+  "name": "HFR - DHIS2 Mediator",
   "description": "A mediator for handling sharing of health facilities information from Health Facility Registry to other health information systems",
   "endpoints": [
     {
-      "name": "HFR Mediator DHIS2 Route",
+      "name": "HFR - DHIS2 Mediator Route",
       "host": "localhost",
       "port": "3003",
       "path": "/hfr",
@@ -26,7 +26,7 @@
       ],
       "routes": [
         {
-          "name": "HFR Mediator DHIS2 Route",
+          "name": "HFR - DHIS2 Mediator Route",
           "host": "localhost",
           "port": "3003",
           "path": "/hfr",
