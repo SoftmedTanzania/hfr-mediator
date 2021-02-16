@@ -1,22 +1,22 @@
 {
-  "urn": "urn:uuid:90661DA5-98FA-41D6-8EE3-BFD8C3EFBFBC",
+  "urn": "urn:uuid:E25FBC6F-4404-47EB-90C6-A9C89FE0A145",
   "version": "0.1.0",
-  "name": "HFR Mediator",
+  "name": "HFR Mediator DHIS2",
   "description": "A mediator for handling sharing of health facilities information from Health Facility Registry to other health information systems",
   "endpoints": [
     {
-      "name": "HFR Mediator Route",
+      "name": "HFR Mediator DHIS2 Route",
       "host": "localhost",
-      "port": "3011",
+      "port": "3003",
       "path": "/hfr",
       "type": "http"
     }
   ],
   "defaultChannelConfig": [
     {
-      "name": "HFR DESTINATION Channel",
-      "urlPattern": "^/hfr-destination$",
-      "description": "A channel for handling messages from HFR to the destination via the HIM",
+      "name": "HFR - DHIS2 Facility Channel",
+      "urlPattern": "^/hfr-dhis2$",
+      "description": "A channel for handling messages from HFR to DHIS2 via the HIM",
       "type": "http",
       "allow": [
         "hfr-client"
@@ -26,9 +26,9 @@
       ],
       "routes": [
         {
-          "name": "HFR Mediator DESTINATION Route",
+          "name": "HFR Mediator DHIS2 Route",
           "host": "localhost",
-          "port": "3011",
+          "port": "3003",
           "path": "/hfr",
           "type": "http",
           "primary": "true"
@@ -58,13 +58,13 @@
         {
           "param": "destinationPath",
           "displayName": "Destination Path",
-          "description": "The destination path for receiving data from the HIM. eg /hdr",
+          "description": "The destination path for receiving of data from the HIM. eg /hdr",
           "type": "string"
         },
         {
           "param": "destinationScheme",
           "displayName": "Destination Scheme",
-          "description": "Whether the destination is using HTTP or HTTPS requests.",
+          "description": "Whether the destination is using HTTP or HTTPS requests",
           "type": "option",
           "values": [
             "http",
