@@ -1,5 +1,6 @@
 package tz.go.moh.him.hfr.mediator.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
 
 public class HfrResponse {
@@ -8,12 +9,14 @@ public class HfrResponse {
      * The Status Code.
      */
     @SerializedName("Status")
+    @JsonProperty("Status")
     private int status;
 
     /**
      * The HFR Facility Code.
      */
     @SerializedName("FacilityCode")
+    @JsonProperty("FacilityCode")
     private String facilityCode;
 
 
@@ -21,6 +24,7 @@ public class HfrResponse {
      * The Response Message.
      */
     @SerializedName("Message")
+    @JsonProperty("Message")
     private String message;
 
     public HfrResponse() {
