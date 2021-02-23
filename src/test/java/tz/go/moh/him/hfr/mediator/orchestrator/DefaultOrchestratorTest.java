@@ -3,6 +3,7 @@ package tz.go.moh.him.hfr.mediator.orchestrator;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.testkit.JavaTestKit;
+import com.google.gson.JsonParser;
 import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Test;
@@ -59,7 +60,13 @@ public class DefaultOrchestratorTest extends BaseOrchestratorTest {
                 }
             }.get();
 
+            InputStream responseStream = DefaultOrchestratorTest.class.getClassLoader().getResourceAsStream("success_response.json");
+            String expectedResponse = IOUtils.toString(responseStream);
+
+            JsonParser parser = new JsonParser();
+
             Assert.assertTrue(Arrays.stream(out).anyMatch(c -> c instanceof FinishRequest));
+            Assert.assertTrue(Arrays.stream(out).allMatch(c -> (c instanceof FinishRequest) && parser.parse(expectedResponse).equals(parser.parse(((FinishRequest) c).getResponse()))));
         }};
     }
 
@@ -103,7 +110,7 @@ public class DefaultOrchestratorTest extends BaseOrchestratorTest {
             }.get();
 
             Assert.assertTrue(Arrays.stream(out).anyMatch(c -> c instanceof FinishRequest));
-            Assert.assertTrue(Arrays.stream(out).allMatch(c -> (c instanceof FinishRequest) && ((FinishRequest) c).getResponse().equals("Bad Request")));
+            Assert.assertTrue(Arrays.stream(out).allMatch(c -> (c instanceof FinishRequest) && ((FinishRequest) c).getResponse().contains("Failed") && ((FinishRequest) c).getResponseStatus() == 400));
         }};
     }
 }
