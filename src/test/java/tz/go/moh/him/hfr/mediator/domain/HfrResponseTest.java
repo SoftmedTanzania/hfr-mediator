@@ -18,18 +18,14 @@ public class HfrResponseTest {
      * Tests the deserialization of an HFR response.
      */
     @Test
-    public void testDeserializeHfrResponse() throws JsonProcessingException {
+    public void testDeserializeHfrResponse() throws IOException {
         InputStream stream = HrhisRequestTest.class.getClassLoader().getResourceAsStream("success_response.json");
 
         Assert.assertNotNull(stream);
 
         String data;
 
-        try {
-            data = IOUtils.toString(stream);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        data = IOUtils.toString(stream);
 
         Assert.assertNotNull(data);
 
