@@ -1,4 +1,5 @@
 {
-  "IL_IDNumber": "123456789",
-  "status": "Success"
+  "Status": 200,
+  "FacilityCode": "105651-4",
+  "Message": "Success"
 }
