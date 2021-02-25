@@ -163,7 +163,7 @@ public class HfrRequest {
      * The indicator as to whether this message is a create or update.
      */
     @JsonProperty("PostorUpdate")
-    private String postOrUpdate;
+    private MessageOperation postOrUpdate;
 
     /**
      * Initializes a new instance of the {@link HfrRequest} class.
@@ -395,11 +395,11 @@ public class HfrRequest {
         this.operatingStatusChangeClosedToOperational = operatingStatusChangeClosedToOperational;
     }
 
-    public String getPostOrUpdate() {
+    public MessageOperation getPostOrUpdate() {
         return postOrUpdate;
     }
 
-    public void setPostOrUpdate(String postOrUpdate) {
+    public void setPostOrUpdate(MessageOperation postOrUpdate) {
         this.postOrUpdate = postOrUpdate;
     }
 
