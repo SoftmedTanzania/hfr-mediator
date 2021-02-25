@@ -81,7 +81,7 @@ public class HfrRequestTest {
         request.setOwnershipCode("Test Ownership Code");
         request.setOwnershipGroup("Test Ownership Group");
         request.setOwnershipGroupCode("Test Ownership Group Code");
-        request.setPostOrUpdate("P");
+        request.setPostOrUpdate(MessageOperation.Post);
         request.setRegion("Test Region");
         request.setRegionCode("Test Region Code");
         request.setRegistrationStatus("Registered");
@@ -96,6 +96,8 @@ public class HfrRequestTest {
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
         String actual = mapper.writeValueAsString(request);
+
+        System.out.println(actual);
 
         Assert.assertTrue(actual.contains(request.getClosedDate()));
         Assert.assertTrue(actual.contains(request.getCommonFacilityName()));
@@ -121,7 +123,7 @@ public class HfrRequestTest {
         Assert.assertTrue(actual.contains(request.getOwnershipCode()));
         Assert.assertTrue(actual.contains(request.getOwnershipGroup()));
         Assert.assertTrue(actual.contains(request.getOwnershipGroupCode()));
-        Assert.assertTrue(actual.contains(request.getPostOrUpdate()));
+        Assert.assertTrue(actual.contains(request.getPostOrUpdate().getOperation()));
         Assert.assertTrue(actual.contains(request.getRegion()));
         Assert.assertTrue(actual.contains(request.getRegionCode()));
         Assert.assertTrue(actual.contains(request.getRegistrationStatus()));
