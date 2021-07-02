@@ -73,13 +73,13 @@ public class FacilityOrchestrator extends UntypedActor {
 
             mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
-            HfrRequest hfrRequest = mapper.readValue(workingRequest.getBody(), HfrRequest.class);
+            mapper.readValue(workingRequest.getBody(), HfrRequest.class);
 
             String host;
             int port;
             String path;
             String scheme;
-            String username = "";
+            String username =  "";
             String password = "";
 
             if (config.getDynamicConfig().isEmpty()) {
@@ -117,7 +117,7 @@ public class FacilityOrchestrator extends UntypedActor {
             host = scheme + "://" + host + ":" + port + path;
 
             MediatorHTTPRequest request = new MediatorHTTPRequest(workingRequest.getRequestHandler(), getSelf(), host, "POST",
-                    host, mapper.writeValueAsString(hfrRequest), headers, parameters);
+                    host, workingRequest.getBody(), headers, parameters);
 
             ActorSelection httpConnector = getContext().actorSelection(config.userPathFor("http-connector"));
             httpConnector.tell(request, getSelf());
