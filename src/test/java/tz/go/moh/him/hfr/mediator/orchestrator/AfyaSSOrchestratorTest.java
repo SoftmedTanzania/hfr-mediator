@@ -25,6 +25,7 @@ public class AfyaSSOrchestratorTest extends BaseOrchestratorTest {
      */
     @Test
     public void testHfrRequest() throws Exception {
+        Assert.assertNotNull(system);
         new JavaTestKit(system) {{
             final ActorRef orchestrator = system.actorOf(Props.create(AfyaSSOrchestrator.class, configuration));
 
