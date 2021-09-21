@@ -15,7 +15,7 @@
   "defaultChannelConfig": [
     {
       "name": "HFR - AfyaSS Facility Channel",
-      "urlPattern": "^/hfr-dhis2$",
+      "urlPattern": "^/hfr-afyass$",
       "description": "A channel for handling messages from HFR to AfyaSS via the HIM",
       "type": "http",
       "allow": [
