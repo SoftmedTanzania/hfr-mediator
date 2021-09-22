@@ -133,3 +133,6 @@ The known integrations for the HFR
 2. ELMIS
 3. EPICOR
 4. VIMS
+5. HRHIS
+6. THSCP
+7. AFYASS
