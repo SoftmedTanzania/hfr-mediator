@@ -30,7 +30,7 @@ public class DefaultOrchestratorTest extends BaseOrchestratorTest {
     public void testHfrRequest() throws Exception {
         new JavaTestKit(system) {{
 
-            InputStream stream = DefaultOrchestratorTest.class.getClassLoader().getResourceAsStream("request.json");
+            InputStream stream = DefaultOrchestratorTest.class.getClassLoader().getResourceAsStream("new_facility_request.json");
 
             Assert.assertNotNull(stream);
 

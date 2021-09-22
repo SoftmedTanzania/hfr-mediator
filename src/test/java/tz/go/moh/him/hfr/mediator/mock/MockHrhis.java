@@ -59,7 +59,7 @@ public class MockHrhis extends MockHTTPConnector {
     @Override
     public void executeOnReceive(MediatorHTTPRequest msg) {
 
-        InputStream stream = HrhisOrchestratorTest.class.getClassLoader().getResourceAsStream("request.json");
+        InputStream stream = HrhisOrchestratorTest.class.getClassLoader().getResourceAsStream("new_facility_request.json");
 
         Assert.assertNotNull(stream);
 

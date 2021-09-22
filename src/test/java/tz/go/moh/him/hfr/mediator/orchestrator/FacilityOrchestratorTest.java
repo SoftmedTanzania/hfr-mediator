@@ -28,7 +28,7 @@ public class FacilityOrchestratorTest extends BaseOrchestratorTest {
         new JavaTestKit(system) {{
             final ActorRef orchestrator = system.actorOf(Props.create(FacilityOrchestrator.class, configuration));
 
-            InputStream stream = FacilityOrchestratorTest.class.getClassLoader().getResourceAsStream("request.json");
+            InputStream stream = FacilityOrchestratorTest.class.getClassLoader().getResourceAsStream("new_facility_request.json");
 
             Assert.assertNotNull(stream);
 

@@ -1,5 +1,6 @@
 package tz.go.moh.him.hfr.mediator.orchestrator;
 
+import akka.actor.ActorRef;
 import akka.actor.ActorSelection;
 import akka.actor.UntypedActor;
 import akka.event.Logging;
@@ -79,7 +80,7 @@ public class FacilityOrchestrator extends UntypedActor {
             int port;
             String path;
             String scheme;
-            String username =  "";
+            String username = "";
             String password = "";
 
             if (config.getDynamicConfig().isEmpty()) {
@@ -116,8 +117,7 @@ public class FacilityOrchestrator extends UntypedActor {
 
             host = scheme + "://" + host + ":" + port + path;
 
-            MediatorHTTPRequest request = new MediatorHTTPRequest(workingRequest.getRequestHandler(), getSelf(), host, "POST",
-                    host, workingRequest.getBody(), headers, parameters);
+            MediatorHTTPRequest request = generateRequest(workingRequest.getRequestHandler(), host, headers, parameters, workingRequest.getBody());
 
             ActorSelection httpConnector = getContext().actorSelection(config.userPathFor("http-connector"));
             httpConnector.tell(request, getSelf());
@@ -127,5 +127,10 @@ public class FacilityOrchestrator extends UntypedActor {
         } else {
             unhandled(msg);
         }
+    }
+
+    public MediatorHTTPRequest generateRequest(ActorRef requestHandler, String host, Map<String, String> headers, List<Pair<String, String>> parameters, String body) throws JsonProcessingException {
+        return new MediatorHTTPRequest(requestHandler, getSelf(), host, "POST",
+                host, body, headers, parameters, body);
     }
 }
