@@ -56,15 +56,9 @@
           "type": "number"
         },
         {
-          "param": "destinationNewFacilityPath",
-          "displayName": "Destination Path for Receiving New Facilities from HFR",
-          "description": "The destination path for receiving new health facilities data from the HIM. eg /add",
-          "type": "string"
-        },
-        {
-          "param": "destinationUpdateFacilityPath",
-          "displayName": "Destination Path for receiving Facility Updates from HFR",
-          "description": "The destination path for receiving health facilities updates data from the HIM. eg /update",
+          "param": "destinationPath",
+          "displayName": "Destination Path",
+          "description": "The destination path for receiving of data from the HIM. eg /hdr",
           "type": "string"
         },
         {
