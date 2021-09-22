@@ -22,12 +22,6 @@ import java.util.Map;
 public class MockAfyaSS extends MockHTTPConnector {
 
     /**
-     * Initializes a new instance of the {@link MockAfyaSS} class.
-     */
-    public MockAfyaSS() {
-    }
-
-    /**
      * Gets the response.
      *
      * @return Returns the response.
@@ -77,14 +71,14 @@ public class MockAfyaSS extends MockHTTPConnector {
         try {
             actual = mapper.readValue(msg.getBody(), HfrRequest.class);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
-        HfrRequest expected;
+        HfrRequest expected = null;
         try {
             expected = mapper.readValue(IOUtils.toString(stream), HfrRequest.class);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
         if (actual.getPostOrUpdate() == MessageOperation.Post) {
