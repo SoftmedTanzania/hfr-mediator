@@ -20,7 +20,7 @@ public class HrhisRequestTest {
      */
     @Test
     public void testDeserializeHfrRequest() throws JsonProcessingException {
-        InputStream stream = HrhisRequestTest.class.getClassLoader().getResourceAsStream("request.json");
+        InputStream stream = HrhisRequestTest.class.getClassLoader().getResourceAsStream("new_facility_request.json");
 
         Assert.assertNotNull(stream);
 

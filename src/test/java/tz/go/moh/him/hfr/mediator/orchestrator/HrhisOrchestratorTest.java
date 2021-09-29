@@ -42,7 +42,7 @@ public class HrhisOrchestratorTest extends BaseOrchestratorTest {
         new JavaTestKit(system) {{
             final ActorRef orchestrator = system.actorOf(Props.create(HrhisOrchestrator.class, configuration));
 
-            InputStream stream = HrhisOrchestratorTest.class.getClassLoader().getResourceAsStream("request.json");
+            InputStream stream = HrhisOrchestratorTest.class.getClassLoader().getResourceAsStream("new_facility_request.json");
 
             Assert.assertNotNull(stream);
 

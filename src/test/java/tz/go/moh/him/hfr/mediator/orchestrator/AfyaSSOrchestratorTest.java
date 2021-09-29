@@ -3,83 +3,51 @@ package tz.go.moh.him.hfr.mediator.orchestrator;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.testkit.JavaTestKit;
-import com.google.gson.JsonParser;
 import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.openhim.mediator.engine.messages.FinishRequest;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
+import org.openhim.mediator.engine.testing.MockLauncher;
+import org.openhim.mediator.engine.testing.TestingUtils;
+import tz.go.moh.him.hfr.mediator.mock.MockAfyaSS;
 
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
- * Contains tests for the {@link DefaultOrchestrator} class.
+ * Contains tests for the {@link AfyaSSOrchestrator} class.
  */
-public class DefaultOrchestratorTest extends BaseOrchestratorTest {
-
-    private final ActorRef orchestrator = system.actorOf(Props.create(DefaultOrchestrator.class, configuration));
+public class AfyaSSOrchestratorTest extends BaseOrchestratorTest {
 
     /**
-     * Tests the mediator.
-     *
-     * @throws Exception if an exception occurs
+     * Runs initialization before each test execution.
      */
-    @Test
-    public void testHfrRequest() throws Exception {
-        new JavaTestKit(system) {{
+    @Before
+    public void before() {
+        List<MockLauncher.ActorToLaunch> actorsToLaunch = new LinkedList<>();
 
-            InputStream stream = DefaultOrchestratorTest.class.getClassLoader().getResourceAsStream("new_facility_request.json");
+        actorsToLaunch.add(new MockLauncher.ActorToLaunch("http-connector", MockAfyaSS.class));
 
-            Assert.assertNotNull(stream);
-
-            MediatorHTTPRequest request = new MediatorHTTPRequest(
-                    getRef(),
-                    getRef(),
-                    "unit-test",
-                    "POST",
-                    "http",
-                    null,
-                    null,
-                    "/hfr-inbound",
-                    IOUtils.toString(stream),
-                    Collections.singletonMap("Content-Type", "application/json"),
-                    Collections.emptyList()
-            );
-
-            orchestrator.tell(request, getRef());
-
-            final Object[] out = new ReceiveWhile<Object>(Object.class, duration("3 seconds")) {
-                @Override
-                protected Object match(Object msg) {
-                    if (msg instanceof FinishRequest) {
-                        return msg;
-                    }
-                    throw noMatch();
-                }
-            }.get();
-
-            InputStream responseStream = DefaultOrchestratorTest.class.getClassLoader().getResourceAsStream("success_response.json");
-            String expectedResponse = IOUtils.toString(responseStream);
-
-            JsonParser parser = new JsonParser();
-
-            Assert.assertTrue(Arrays.stream(out).anyMatch(c -> c instanceof FinishRequest));
-            Assert.assertTrue(Arrays.stream(out).allMatch(c -> (c instanceof FinishRequest) && parser.parse(expectedResponse).equals(parser.parse(((FinishRequest) c).getResponse()))));
-        }};
+        TestingUtils.launchActors(system, configuration.getName(), actorsToLaunch);
     }
 
     /**
      * Tests the mediator.
      *
-     * @throws Exception if an exception occurs
+     * @throws Exception if an exception occurs.
      */
     @Test
-    public void testHfrRequestBadRequest() throws Exception {
+    public void testNewFacilityHfrRequest() throws Exception {
+        Assert.assertNotNull(system);
         new JavaTestKit(system) {{
+            final ActorRef orchestrator = system.actorOf(Props.create(AfyaSSOrchestrator.class, configuration));
 
-            InputStream stream = DefaultOrchestratorTest.class.getClassLoader().getResourceAsStream("bad_request.json");
+            InputStream stream = AfyaSSOrchestratorTest.class.getClassLoader().getResourceAsStream("new_facility_request.json");
 
             Assert.assertNotNull(stream);
 
@@ -91,7 +59,7 @@ public class DefaultOrchestratorTest extends BaseOrchestratorTest {
                     "http",
                     null,
                     null,
-                    "/hfr-inbound",
+                    "/hfr",
                     IOUtils.toString(stream),
                     Collections.singletonMap("Content-Type", "application/json"),
                     Collections.emptyList()
@@ -110,7 +78,52 @@ public class DefaultOrchestratorTest extends BaseOrchestratorTest {
             }.get();
 
             Assert.assertTrue(Arrays.stream(out).anyMatch(c -> c instanceof FinishRequest));
-            Assert.assertTrue(Arrays.stream(out).allMatch(c -> (c instanceof FinishRequest) && ((FinishRequest) c).getResponse().contains("Failed") && ((FinishRequest) c).getResponseStatus() == 400));
+        }};
+    }
+
+
+    /**
+     * Tests the mediator.
+     *
+     * @throws Exception if an exception occurs.
+     */
+    @Test
+    public void testUpdateFacilityHfrRequest() throws Exception {
+        Assert.assertNotNull(system);
+        new JavaTestKit(system) {{
+            final ActorRef orchestrator = system.actorOf(Props.create(AfyaSSOrchestrator.class, configuration));
+
+            InputStream stream = AfyaSSOrchestratorTest.class.getClassLoader().getResourceAsStream("update_facility_request.json");
+
+            Assert.assertNotNull(stream);
+
+            MediatorHTTPRequest request = new MediatorHTTPRequest(
+                    getRef(),
+                    getRef(),
+                    "unit-test",
+                    "POST",
+                    "http",
+                    null,
+                    null,
+                    "/hfr",
+                    IOUtils.toString(stream),
+                    Collections.singletonMap("Content-Type", "application/json"),
+                    Collections.emptyList()
+            );
+
+            orchestrator.tell(request, getRef());
+
+            final Object[] out = new ReceiveWhile<Object>(Object.class, duration("3 seconds")) {
+                @Override
+                protected Object match(Object msg) {
+                    if (msg instanceof FinishRequest) {
+                        return msg;
+                    }
+                    throw noMatch();
+                }
+            }.get();
+
+            Assert.assertTrue(Arrays.stream(out).anyMatch(c -> c instanceof FinishRequest));
         }};
     }
 }
