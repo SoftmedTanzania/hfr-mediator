@@ -1,5 +1,5 @@
 {
-  "urn": "urn:uuid:90661DA5-98FA-41D6-8EE3-BFD8C3EFBFBC",
+  "urn": "urn:uuid:7e71a322-5c72-4927-b4b7-41c43c362f6c",
   "version": "0.1.0",
   "name": "HFR - NHIF Mediator",
   "description": "A mediator for handling sharing of health facilities information from Health Facility Registry to other health information systems",
