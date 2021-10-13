@@ -7,7 +7,7 @@
     {
       "name": "HFR - HPRS Mediator Route",
       "host": "localhost",
-      "port": "3003",
+      "port": "3100",
       "path": "/hfr",
       "type": "http"
     }
@@ -28,7 +28,7 @@
         {
           "name": "HFR - HPRS Mediator Route",
           "host": "localhost",
-          "port": "3003",
+          "port": "3100",
           "path": "/hfr",
           "type": "http",
           "primary": "true"
