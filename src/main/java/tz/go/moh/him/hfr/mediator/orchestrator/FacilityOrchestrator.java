@@ -112,6 +112,12 @@ public class FacilityOrchestrator extends UntypedActor {
                         String authHeader = "Basic " + new String(encodedAuth);
                         headers.put(HttpHeaders.AUTHORIZATION, authHeader);
                     }
+                } else if (destinationProperties.has("destinationAuthorization")) {
+                    String authorization = destinationProperties.getString("destinationAuthorization");
+                    if (authorization != null && !"".equals(authorization)) {
+                        headers.put(HttpHeaders.AUTHORIZATION, authorization);
+                    }
+
                 }
             }
 
