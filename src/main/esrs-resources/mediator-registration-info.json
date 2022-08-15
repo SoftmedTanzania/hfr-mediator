@@ -1,0 +1,89 @@
+{
+  "urn": "urn:uuid:765f2b4c-1bc9-4577-9983-5a5c078873ab",
+  "version": "0.1.0",
+  "name": "HFR - ESRS Mediator",
+  "description": "A mediator for handling sharing of health facilities information from Health Facility Registry to other health information systems",
+  "endpoints": [
+    {
+      "name": "HFR - ESRS Mediator Route",
+      "host": "localhost",
+      "port": "3028",
+      "path": "/hfr-esrs",
+      "type": "http"
+    }
+  ],
+  "defaultChannelConfig": [
+    {
+      "name": "HFR - ESRS Facility Channel",
+      "urlPattern": "^/hfr-esrs",
+      "description": "A channel for handling messages from HFR to ESRS via the HIM",
+      "type": "http",
+      "allow": [
+        "hfr-client"
+      ],
+      "methods": [
+        "POST"
+      ],
+      "routes": [
+        {
+          "name": "HFR - ESRS Mediator Route",
+          "host": "localhost",
+          "port": "3028",
+          "path": "/hfr-esrs",
+          "type": "http",
+          "primary": "true"
+        }
+      ]
+    }
+  ],
+  "configDefs": [
+    {
+      "param": "destinationConnectionProperties",
+      "displayName": "Destination Connection Properties",
+      "description": "Configuration to set the hostname, port and path for the destination server",
+      "type": "struct",
+      "template": [
+        {
+          "param": "destinationHost",
+          "displayName": "Destination Host Name",
+          "description": "IP address/hostname of the destination server. e.g 192.168.1.1",
+          "type": "string"
+        },
+        {
+          "param": "destinationPort",
+          "displayName": "Destination Port Number",
+          "description": "The port number of the destination server. e.g 8080",
+          "type": "number"
+        },
+        {
+          "param": "destinationPath",
+          "displayName": "Destination Path",
+          "description": "The destination path for receiving of data from the HIM. eg /hdr",
+          "type": "string"
+        },
+        {
+          "param": "destinationScheme",
+          "displayName": "Destination Scheme",
+          "description": "Whether the destination is using HTTP or HTTPS requests",
+          "type": "option",
+          "values": [
+            "http",
+            "https"
+          ]
+        },
+        {
+          "param": "destinationUsername",
+          "displayName": "Destination Username",
+          "description": "The destination username for receiving data from the HIM.",
+          "type": "string"
+        },
+        {
+          "param": "destinationPassword",
+          "displayName": "Destination Password",
+          "description": "The destination password for receiving data from the HIM.",
+          "type": "password"
+        }
+      ]
+    }
+  ]
+}
