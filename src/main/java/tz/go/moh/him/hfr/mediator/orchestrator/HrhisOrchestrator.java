@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import org.openhim.mediator.engine.MediatorConfig;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
 import org.openhim.mediator.engine.messages.MediatorHTTPResponse;
+import org.openhim.mediator.engine.messages.PutPropertyInCoreResponse;
 import tz.go.moh.him.hfr.mediator.domain.HfrRequest;
 import tz.go.moh.him.hfr.mediator.utils.HfrMessageConversionUtils;
 
@@ -63,6 +64,14 @@ public class HrhisOrchestrator extends UntypedActor {
             workingRequest = (MediatorHTTPRequest) msg;
 
             log.info("Received request: " + workingRequest.getHost() + " " + workingRequest.getMethod() + " " + workingRequest.getPath());
+
+
+            // Add Search parameter to the request
+            String body = workingRequest.getBody();
+            JSONObject payload = new JSONObject(body);
+
+            String facilityCode = payload.getString("Fac_IDNumber");
+            workingRequest.getRequestHandler().tell(new PutPropertyInCoreResponse("hfr-code", facilityCode), getSelf());
 
             Map<String, String> headers = new HashMap<>();
 

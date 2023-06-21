@@ -51,10 +51,7 @@ public class FacilityOrchestratorTest extends BaseOrchestratorTest {
             final Object[] out = new ReceiveWhile<Object>(Object.class, duration("3 seconds")) {
                 @Override
                 protected Object match(Object msg) {
-                    if (msg instanceof FinishRequest) {
-                        return msg;
-                    }
-                    throw noMatch();
+                    return msg;
                 }
             }.get();
 
