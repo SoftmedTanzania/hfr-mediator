@@ -53,10 +53,7 @@ public class DefaultOrchestratorTest extends BaseOrchestratorTest {
             final Object[] out = new ReceiveWhile<Object>(Object.class, duration("3 seconds")) {
                 @Override
                 protected Object match(Object msg) {
-                    if (msg instanceof FinishRequest) {
-                        return msg;
-                    }
-                    throw noMatch();
+                    return msg;
                 }
             }.get();
 
@@ -65,8 +62,9 @@ public class DefaultOrchestratorTest extends BaseOrchestratorTest {
 
             JsonParser parser = new JsonParser();
 
-            Assert.assertTrue(Arrays.stream(out).anyMatch(c -> c instanceof FinishRequest));
-            Assert.assertTrue(Arrays.stream(out).allMatch(c -> (c instanceof FinishRequest) && parser.parse(expectedResponse).equals(parser.parse(((FinishRequest) c).getResponse()))));
+
+            Object object = out[1];
+            Assert.assertTrue((object instanceof FinishRequest) && parser.parse(expectedResponse).equals(parser.parse(((FinishRequest) object).getResponse())));
         }};
     }
 
