@@ -4,9 +4,11 @@ import akka.actor.UntypedActor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.apache.http.HttpStatus;
+import org.json.JSONObject;
 import org.openhim.mediator.engine.MediatorConfig;
 import org.openhim.mediator.engine.messages.FinishRequest;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
+import org.openhim.mediator.engine.messages.PutPropertyInCoreResponse;
 import tz.go.moh.him.hfr.mediator.domain.HfrRequest;
 import tz.go.moh.him.hfr.mediator.domain.HfrResponse;
 
@@ -36,6 +38,14 @@ public class DefaultOrchestrator extends UntypedActor {
                 ObjectMapper mapper = new ObjectMapper();
 
                 HfrRequest hfrRequest = mapper.readValue(((MediatorHTTPRequest) msg).getBody(), HfrRequest.class);
+
+
+                // Add Search parameter to the request
+                String body = ((MediatorHTTPRequest) msg).getBody();
+                JSONObject payload = new JSONObject(body);
+
+                String facilityCode = payload.getString("Fac_IDNumber");
+                ((MediatorHTTPRequest) msg).getRequestHandler().tell(new PutPropertyInCoreResponse("hfr-code", facilityCode), getSelf());
 
                 HfrResponse hfrResponse = new HfrResponse(HttpStatus.SC_OK, hfrRequest.getFacilityIdNumber(), "Success");
 
