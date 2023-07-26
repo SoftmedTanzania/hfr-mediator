@@ -15,7 +15,7 @@ import org.openhim.mediator.engine.MediatorConfig;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
 import org.openhim.mediator.engine.messages.MediatorHTTPResponse;
 import org.openhim.mediator.engine.messages.PutPropertyInCoreResponse;
-import tz.go.moh.him.hfr.mediator.domain.HfrRequest;
+import tz.go.moh.him.hfr.mediator.domain.HrhisHfrRequest;
 import tz.go.moh.him.hfr.mediator.utils.HfrMessageConversionUtils;
 
 import java.nio.charset.StandardCharsets;
@@ -83,7 +83,7 @@ public class HrhisOrchestrator extends UntypedActor {
 
             mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
-            HfrRequest hfrRequest = mapper.readValue(workingRequest.getBody(), HfrRequest.class);
+            HrhisHfrRequest hrhisRequest = mapper.readValue(workingRequest.getBody(), HrhisHfrRequest.class);
 
             String host;
             int port;
@@ -127,7 +127,7 @@ public class HrhisOrchestrator extends UntypedActor {
             host = scheme + "://" + host + ":" + port + path;
 
             MediatorHTTPRequest request = new MediatorHTTPRequest(workingRequest.getRequestHandler(), getSelf(), host, "POST",
-                    host, mapper.writeValueAsString(HfrMessageConversionUtils.convertToHRHISPayload(hfrRequest)), headers, parameters);
+                    host, mapper.writeValueAsString(HfrMessageConversionUtils.convertToHRHISPayload(hrhisRequest)), headers, parameters);
 
             ActorSelection httpConnector = getContext().actorSelection(config.userPathFor("http-connector"));
             httpConnector.tell(request, getSelf());

@@ -8,9 +8,11 @@
   "District_Code":"TZ.ET.DS.IL",
   "District":"Ilala District",
   "Council_Code":"TZ.ET.DS.IL.2",
+  "Vote":"TZ.ET.DS.IL.2",
   "Council":"Ilala MC",
   "Ward":"Upanga Magharibi",
   "Village":"Mfaume",
+  "Village_Code":"TZ.ET.DS.IL.2.2",
   "FacilityTypeGroupCode":"HOSP",
   "FacilityTypeGroup":"Hospital",
   "FacilityTypeCode":"NAT",
@@ -29,5 +31,6 @@
   "ClosedDate": "",
   "OSchangeOpenedtoClose":"Y",
   "OSchangeClosedtoOperational":"N",
-  "PostorUpdate":"P"
+  "PostorUpdate":"P",
+  "IsDesignated":0
 }

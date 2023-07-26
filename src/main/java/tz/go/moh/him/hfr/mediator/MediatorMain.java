@@ -6,10 +6,7 @@ import akka.event.LoggingAdapter;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.openhim.mediator.engine.*;
-import tz.go.moh.him.hfr.mediator.orchestrator.AfyaSSOrchestrator;
-import tz.go.moh.him.hfr.mediator.orchestrator.DefaultOrchestrator;
-import tz.go.moh.him.hfr.mediator.orchestrator.FacilityOrchestrator;
-import tz.go.moh.him.hfr.mediator.orchestrator.HrhisOrchestrator;
+import tz.go.moh.him.hfr.mediator.orchestrator.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -40,6 +37,7 @@ public class MediatorMain {
         routingTable.addRoute("/hfr", FacilityOrchestrator.class);
         routingTable.addRoute("/hfr-hrhis", HrhisOrchestrator.class);
         routingTable.addRoute("/hfr-afyass", AfyaSSOrchestrator.class);
+        routingTable.addRoute("/hfr-hcmis", HcmisOrchestrator.class);
 
         return routingTable;
     }

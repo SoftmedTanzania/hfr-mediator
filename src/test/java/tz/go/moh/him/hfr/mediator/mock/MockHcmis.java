@@ -3,13 +3,13 @@ package tz.go.moh.him.hfr.mediator.mock;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
 import org.openhim.mediator.engine.testing.MockHTTPConnector;
-import tz.go.moh.him.hfr.mediator.domain.HrhisHfrRequest;
-import tz.go.moh.him.hfr.mediator.domain.HrhisMessage;
-import tz.go.moh.him.hfr.mediator.orchestrator.HrhisOrchestratorTest;
+import tz.go.moh.him.hfr.mediator.domain.HcmisHfrRequest;
+import tz.go.moh.him.hfr.mediator.orchestrator.HcmisOrchestrator;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,7 +19,7 @@ import java.util.Map;
 /**
  * Represents a mock destination.
  */
-public class MockHrhis extends MockHTTPConnector {
+public class MockHcmis extends MockHTTPConnector {
 
     /**
      * Gets the response.
@@ -59,7 +59,7 @@ public class MockHrhis extends MockHTTPConnector {
     @Override
     public void executeOnReceive(MediatorHTTPRequest msg) {
 
-        InputStream stream = HrhisOrchestratorTest.class.getClassLoader().getResourceAsStream("new_facility_request.json");
+        InputStream stream = HcmisOrchestrator.class.getClassLoader().getResourceAsStream("new_facility_request.json");
 
         Assert.assertNotNull(stream);
 
@@ -67,29 +67,25 @@ public class MockHrhis extends MockHTTPConnector {
 
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
-        HrhisHfrRequest expected;
+        HcmisHfrRequest expected;
 
         try {
-            expected = mapper.readValue(IOUtils.toString(stream), HrhisHfrRequest.class);
+            expected = mapper.readValue(IOUtils.toString(stream), HcmisHfrRequest.class);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        HrhisMessage actual = null;
+        HcmisHfrRequest actual;
         try {
-            actual = mapper.readValue(msg.getBody(), HrhisMessage.class);
-        } catch (JsonProcessingException e) {
+            actual = new Gson().fromJson(msg.getBody(),HcmisHfrRequest.class);// mapper.readValue(msg.getBody(), HcmisHfrRequest.class);
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
         Assert.assertNotNull(actual);
         Assert.assertNotNull(expected);
 
-        Assert.assertEquals(expected.getName() + " " + expected.getFacilityType(), actual.getName());
-        Assert.assertEquals(expected.getFacilityIdNumber(), actual.getCode());
-        Assert.assertEquals(expected.getName(), actual.getShortName());
-        Assert.assertEquals(expected.getVillageCode(), actual.getParent().get("code"));
-        Assert.assertEquals(expected.getOpenedDate(), actual.getOpeningDate());
-        Assert.assertNull(actual.getClosingDate());
+        Assert.assertEquals(expected.getVote(), actual.getVote());
+        Assert.assertEquals(expected.getIsDesignated(), actual.getIsDesignated());
     }
 }

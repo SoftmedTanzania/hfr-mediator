@@ -1,22 +1,29 @@
 {
-  "urn": "urn:uuid:E25FBC6F-4404-47EB-90C6-A9C89FE0A145",
+  "urn": "urn:uuid:db1ca140-6aba-11eb-ae79-0b50bc061010",
   "version": "0.1.0",
-  "name": "HFR - DHIS2 Mediator",
+  "name": "HFR - HRHIS Mediator - Test",
   "description": "A mediator for handling sharing of health facilities information from Health Facility Registry to other health information systems",
   "endpoints": [
     {
-      "name": "HFR - DHIS2 Mediator Route",
+      "name": "HFR - HRHIS Mediator Route test",
       "host": "localhost",
-      "port": "3003",
-      "path": "/hfr",
+      "port": "2020",
+      "path": "/hfr-hrhis-test",
+      "type": "http"
+    },
+    {
+      "name": "HFR - HRHIS Inbound Mediator Route test",
+      "host": "localhost",
+      "port": "2020",
+      "path": "/hfr-inbound-test",
       "type": "http"
     }
   ],
   "defaultChannelConfig": [
     {
-      "name": "HFR - DHIS2 Facility Channel",
-      "urlPattern": "^/hfr-dhis2$",
-      "description": "A channel for handling messages from HFR to DHIS2 via the HIM",
+      "name": "HFR - HRHIS Facility Channel test",
+      "urlPattern": "^/hfr-hrhis-test$",
+      "description": "A channel for handling messages from HFR to HRHIS via the HIM",
       "type": "http",
       "allow": [
         "hfr-client"
@@ -26,10 +33,31 @@
       ],
       "routes": [
         {
-          "name": "HFR - DHIS2 Mediator Route",
+          "name": "HFR - HRHIS Mediator Route test",
           "host": "localhost",
-          "port": "3003",
-          "path": "/hfr",
+          "port": "2020",
+          "path": "/hfr-hrhis-test",
+          "type": "http"
+        }
+      ]
+    },
+    {
+      "name": "HFR Facility Inbound Channel test",
+      "urlPattern": "^/hfr-inbound-test$",
+      "description": "A channel for handling messages inbound messages from the HFR",
+      "type": "http",
+      "allow": [
+        "hfr-client"
+      ],
+      "methods": [
+        "POST"
+      ],
+      "routes": [
+        {
+          "name": "HFR - HRHIS Inbound Mediator Route test",
+          "host": "localhost",
+          "port": "2020",
+          "path": "/hfr-inbound-test",
           "type": "http",
           "primary": "true"
         }

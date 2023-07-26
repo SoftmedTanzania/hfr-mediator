@@ -11,16 +11,16 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Contains tests for the {@link HfrRequest} class.
+ * Contains tests for the {@link HcmisHfrRequest} class.
  */
-public class HrhisRequestTest {
+public class HcmisHfrRequestTest {
 
     /**
      * Tests the deserialization of an HFR request.
      */
     @Test
     public void testDeserializeHfrRequest() throws JsonProcessingException {
-        InputStream stream = HrhisRequestTest.class.getClassLoader().getResourceAsStream("new_facility_request.json");
+        InputStream stream = HcmisHfrRequestTest.class.getClassLoader().getResourceAsStream("new_facility_request.json");
 
         Assert.assertNotNull(stream);
 
@@ -38,9 +38,10 @@ public class HrhisRequestTest {
 
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
-        HrhisHfrRequest hfrRequest = mapper.readValue(data, HrhisHfrRequest.class);
+        HcmisHfrRequest hcmisHfrRequest = mapper.readValue(data, HcmisHfrRequest.class);
 
-        Assert.assertEquals("TZ.ET.DS.IL.2.2", hfrRequest.getVillageCode());
+        Assert.assertEquals("TZ.ET.DS.IL.2", hcmisHfrRequest.getVote());
+        Assert.assertEquals(0, hcmisHfrRequest.getIsDesignated());
     }
 
     /**
@@ -48,9 +49,10 @@ public class HrhisRequestTest {
      */
     @Test
     public void testSerializeHfrRequest() throws JsonProcessingException {
-        HrhisHfrRequest request = new HrhisHfrRequest();
+        HcmisHfrRequest request = new HcmisHfrRequest();
 
-        request.setVillageCode("Test Village Code");
+        request.setVote("2021-01-01");
+        request.setIsDesignated(7);
 
         ObjectMapper mapper = new ObjectMapper();
 
@@ -58,6 +60,10 @@ public class HrhisRequestTest {
 
         String actual = mapper.writeValueAsString(request);
 
-        Assert.assertTrue(actual.contains(request.getVillageCode()));
+        System.out.println(actual);
+
+        Assert.assertTrue(actual.contains(request.getVote()));
+        Assert.assertTrue(actual.contains(String.valueOf(request.getIsDesignated())));
+
     }
 }
