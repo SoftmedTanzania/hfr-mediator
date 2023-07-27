@@ -1,29 +1,22 @@
 {
-  "urn": "urn:uuid:db1ca140-6aba-11eb-ae79-0b50bc061010",
+  "urn": "urn:uuid:90661DA5-98FA-41D6-8EE3-BFD8C3EFBFBC",
   "version": "0.1.0",
-  "name": "HFR - HRHIS Mediator",
+  "name": "HFR Mediator",
   "description": "A mediator for handling sharing of health facilities information from Health Facility Registry to other health information systems",
   "endpoints": [
     {
-      "name": "HFR - HRHIS Mediator Route",
+      "name": "HFR Mediator Route",
       "host": "localhost",
-      "port": "2020",
-      "path": "/hfr-hrhis",
-      "type": "http"
-    },
-    {
-      "name": "HFR - HRHIS Inbound Mediator Route",
-      "host": "localhost",
-      "port": "2020",
-      "path": "/hfr-inbound",
+      "port": "3011",
+      "path": "/hfr",
       "type": "http"
     }
   ],
   "defaultChannelConfig": [
     {
-      "name": "HFR - HRHIS Facility Channel",
-      "urlPattern": "^/hfr-hrhis$",
-      "description": "A channel for handling messages from HFR to HRHIS via the HIM",
+      "name": "HFR DESTINATION Channel",
+      "urlPattern": "^/hfr-destination$",
+      "description": "A channel for handling messages from HFR to the destination via the HIM",
       "type": "http",
       "allow": [
         "hfr-client"
@@ -33,31 +26,10 @@
       ],
       "routes": [
         {
-          "name": "HFR - HRHIS Mediator Route",
+          "name": "HFR Mediator DESTINATION Route",
           "host": "localhost",
-          "port": "2020",
-          "path": "/hfr-hrhis",
-          "type": "http"
-        }
-      ]
-    },
-    {
-      "name": "HFR Facility Inbound Channel",
-      "urlPattern": "^/hfr-inbound$",
-      "description": "A channel for handling messages inbound messages from the HFR",
-      "type": "http",
-      "allow": [
-        "hfr-client"
-      ],
-      "methods": [
-        "POST"
-      ],
-      "routes": [
-        {
-          "name": "HFR - HRHIS Inbound Mediator Route",
-          "host": "localhost",
-          "port": "2020",
-          "path": "/hfr-inbound",
+          "port": "3011",
+          "path": "/hfr",
           "type": "http",
           "primary": "true"
         }
@@ -86,13 +58,13 @@
         {
           "param": "destinationPath",
           "displayName": "Destination Path",
-          "description": "The destination path for receiving of data from the HIM. eg /hdr",
+          "description": "The destination path for receiving data from the HIM. eg /hdr",
           "type": "string"
         },
         {
           "param": "destinationScheme",
           "displayName": "Destination Scheme",
-          "description": "Whether the destination is using HTTP or HTTPS requests",
+          "description": "Whether the destination is using HTTP or HTTPS requests.",
           "type": "option",
           "values": [
             "http",
