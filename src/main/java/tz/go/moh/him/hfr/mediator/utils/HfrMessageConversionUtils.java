@@ -1,7 +1,7 @@
 package tz.go.moh.him.hfr.mediator.utils;
 
 import org.codehaus.plexus.util.StringUtils;
-import tz.go.moh.him.hfr.mediator.domain.HfrRequest;
+import tz.go.moh.him.hfr.mediator.domain.HrhisHfrRequest;
 import tz.go.moh.him.hfr.mediator.domain.HrhisMessage;
 
 import java.util.ArrayList;
@@ -15,12 +15,12 @@ import java.util.Map;
 public class HfrMessageConversionUtils {
 
     /**
-     * Converts an {@link HfrRequest} instance to an {@link HrhisMessage} instance.
+     * Converts an {@link HrhisHfrRequest} instance to an {@link HrhisMessage} instance.
      *
      * @param hfrRequest The HFR request.
      * @return Returns the converted message.
      */
-    public static HrhisMessage convertToHRHISPayload(HfrRequest hfrRequest) {
+    public static HrhisMessage convertToHRHISPayload(HrhisHfrRequest hfrRequest) {
         HrhisMessage hrhisMessage = new HrhisMessage();
         hrhisMessage.setName(hfrRequest.getName() + " " + hfrRequest.getFacilityType());
         hrhisMessage.setCode(hfrRequest.getFacilityIdNumber());
@@ -35,7 +35,7 @@ public class HfrMessageConversionUtils {
 
         // Adding parent to the payload
         Map<String, Object> parent = new HashMap<String, Object>() {{
-            put("code", hfrRequest.getCouncilCode());
+            put("code", hfrRequest.getVillageCode());
         }};
 
         hrhisMessage.setParent(parent);
