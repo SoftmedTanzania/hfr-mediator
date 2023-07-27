@@ -1,28 +1,28 @@
 {
   "urn": "urn:uuid:db1ca140-6aba-11eb-ae79-0b50bc061010",
   "version": "0.1.0",
-  "name": "HFR - HRHIS Mediator - Test",
+  "name": "HFR - HRHIS Mediator",
   "description": "A mediator for handling sharing of health facilities information from Health Facility Registry to other health information systems",
   "endpoints": [
     {
-      "name": "HFR - HRHIS Mediator Route test",
+      "name": "HFR - HRHIS Mediator Route",
       "host": "localhost",
       "port": "2020",
-      "path": "/hfr-hrhis-test",
+      "path": "/hfr-hrhis",
       "type": "http"
     },
     {
-      "name": "HFR - HRHIS Inbound Mediator Route test",
+      "name": "HFR - HRHIS Inbound Mediator Route",
       "host": "localhost",
       "port": "2020",
-      "path": "/hfr-inbound-test",
+      "path": "/hfr-inbound",
       "type": "http"
     }
   ],
   "defaultChannelConfig": [
     {
-      "name": "HFR - HRHIS Facility Channel test",
-      "urlPattern": "^/hfr-hrhis-test$",
+      "name": "HFR - HRHIS Facility Channel",
+      "urlPattern": "^/hfr-hrhis$",
       "description": "A channel for handling messages from HFR to HRHIS via the HIM",
       "type": "http",
       "allow": [
@@ -33,17 +33,17 @@
       ],
       "routes": [
         {
-          "name": "HFR - HRHIS Mediator Route test",
+          "name": "HFR - HRHIS Mediator Route",
           "host": "localhost",
           "port": "2020",
-          "path": "/hfr-hrhis-test",
+          "path": "/hfr-hrhis",
           "type": "http"
         }
       ]
     },
     {
-      "name": "HFR Facility Inbound Channel test",
-      "urlPattern": "^/hfr-inbound-test$",
+      "name": "HFR Facility Inbound Channel",
+      "urlPattern": "^/hfr-inbound$",
       "description": "A channel for handling messages inbound messages from the HFR",
       "type": "http",
       "allow": [
@@ -54,10 +54,10 @@
       ],
       "routes": [
         {
-          "name": "HFR - HRHIS Inbound Mediator Route test",
+          "name": "HFR - HRHIS Inbound Mediator Route",
           "host": "localhost",
           "port": "2020",
-          "path": "/hfr-inbound-test",
+          "path": "/hfr-inbound",
           "type": "http",
           "primary": "true"
         }

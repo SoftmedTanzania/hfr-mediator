@@ -9,7 +9,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.openhim.mediator.engine.MediatorConfig;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
 import tz.go.moh.him.hfr.mediator.domain.HcmisHfrRequest;
-import tz.go.moh.him.hfr.mediator.domain.MessageOperation;
 
 import java.util.List;
 import java.util.Map;

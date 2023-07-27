@@ -1,7 +1,6 @@
 package tz.go.moh.him.hfr.mediator.mock;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
@@ -77,7 +76,7 @@ public class MockHcmis extends MockHTTPConnector {
 
         HcmisHfrRequest actual;
         try {
-            actual = new Gson().fromJson(msg.getBody(),HcmisHfrRequest.class);// mapper.readValue(msg.getBody(), HcmisHfrRequest.class);
+            actual = new Gson().fromJson(msg.getBody(), HcmisHfrRequest.class);// mapper.readValue(msg.getBody(), HcmisHfrRequest.class);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

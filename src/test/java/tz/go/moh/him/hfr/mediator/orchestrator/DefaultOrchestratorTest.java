@@ -11,7 +11,6 @@ import org.openhim.mediator.engine.messages.FinishRequest;
 import org.openhim.mediator.engine.messages.MediatorHTTPRequest;
 
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.Collections;
 
 /**
